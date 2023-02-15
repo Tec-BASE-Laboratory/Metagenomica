@@ -1,11 +1,12 @@
 ## Correr MetGen_Utils antes de correr este código 
 
-# Preparación de librerías
-
-library(data.table)
-library(tidyverse)
-library(vegan)
-library(RColorBrewer)
+# Instalación y carga de librerias
+packages <- c("data.table", "tidyverse", "vegan", "RColorBrewer","colorspace")
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+  }
+invisible(lapply(packages, library, character.only = TRUE))
 
 #Preparación de los datos 
 setwd("C:/Users/benja/Desktop/Shared/TeBase_2023") 
