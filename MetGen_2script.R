@@ -9,7 +9,7 @@ if (any(installed_packages == FALSE)) {
 invisible(lapply(packages, library, character.only = TRUE))
 
 #Preparación de los datos 
-setwd("C:/Users/benja/Desktop/Shared/TeBase_2023") 
+setwd("~/Your/Path") 
 raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F) ## Dos Warnings, aún hay que checar el porque de estos y porque no sale el output como se desearía
 raw_data
 raw_data[,-c(1,2,3)] <-lapply(raw_data[, -c(1,2,3)], as.integer)
