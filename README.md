@@ -15,7 +15,7 @@ En la segunda sección del código se declara el pathway de la carpeta donde se 
 
 Igual dentro de esta sección se hace un tratado de los datos para asegurar que el formato es el correcto y R o Rstudio no arroje códigos de error y códigos de advertencia 
 
-En la línea `raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F)` se debe de modificar el parámetro "sep" dependiendo del tipo de documento que se esté usando: para **.txt** se usa `"\t"` y para **.csv** se usa `","`.
+En la línea `raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F)` se debe de modificar el parámetro "sep" dependiendo del tipo de documento que se esté usando: para **.txt** se usa `"\t"` y para **.csv** se usa `","`.  
 
 
 # Filtrado
