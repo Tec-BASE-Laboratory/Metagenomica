@@ -1,5 +1,6 @@
 # Metagenomica 
 Proyecto desarrollado por alumnos y docentes del Laboratorio Nacional de Secuenciación Genomica del Instituto Tecnológico y de Estudios superiores de Monterrey
+
 Este programa fue diseñado para hacer un análisis metagenómico de 16S y shotgun, a partir de datos en formato TXT o CSV provenientes de un análisis taxonómico de KRAKEN 2 https://github.com/DerrickWood/kraken2. 
 
 # Utils 
