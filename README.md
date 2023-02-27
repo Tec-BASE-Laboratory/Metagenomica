@@ -11,6 +11,13 @@ Es importante correr estas lineas del código ya que las funciones no se encuent
 
 A su vez, también se instalan (en caso de no tenerlas) y se llama a las librerías que serán utilizadas para hacer los diferentes análisis estadísticos.  
 # Datos
-En la primera sección del código se declara el working directory en el que se van a guardar los resultados y donde deberían de estar los datos con los que se van a trabajar. 
+En la segunda sección del código se declara el pathway de la carpeta donde se encuentran los datos con los cuales va a trabajar el programa. También, dentro de esta carpeta se van a guardar los diferentes documentos e imágenes resultantes de este análisis. 
 
-A su vez, en esta sección se hace un tratado de los datos para asegurar que el formato es el correcto y no haya códigos de error y códigos de advertencia 
+Igual dentro de esta sección se hace un tratado de los datos para asegurar que el formato es el correcto y R o Rstudio no arroje códigos de error y códigos de advertencia 
+
+En la línea `raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F)` se debe de modificar el parámetro "sep" dependiendo del tipo de documento que se esté usando: para **.txt** se usa **"\t"** y para **.csv** se usa **","**.
+
+
+# Filtrado
+
+En esta parte del programa se encuentra un 
