@@ -1,50 +1,141 @@
-## Correr MetGen_Utils antes de correr este código 
+## Declarar Funciones 
 
-# Instalación y carga de librerias
+bcol.pal <- 
+  mypal <- c("#f29080", 
+             "#f27933",
+             "#ffba4a",
+             "#fbff91",
+             "#78a644",
+             "#91ffd9",
+             "#77def2", 
+             "#396799", 
+             "#91a0ff",
+             "#c936ff",
+             "#99268f",
+             "#ff369e",
+             "#ff363c",
+             "#8c3b1d",
+             "#a6754b",
+             "#99844b",
+             "#b9ff40",
+             "#30e676",
+             "#188c7d",
+             "#2bc0ff", 
+             "#1a4099",
+             "#3643ff",
+             "#e89cff",
+             "#cc74a6",
+             "#bf284b")
+
+
+
+
+
+for (i in 1:length(taxa)){
+  x  <- Metatop[[i]]
+  other <- paste("Other <", 1,"%",sep = "")
+  df <- x 
+  samples <- unique(df$Sample)
+  for (k in samples) {
+    dt <- df[Sample == k]
+    totAb <- sum(dt$Abundance)
+    dt[,Abundance := 100*Abundance/totAb]
+    dt[Abundance < 1, `Scientific Name` := other]
+    dt <- aggregate(Abundance ~ ., dt, sum)
+    
+    if (k == samples[1]) {
+      data_barplot <- rbind(dt)
+    }
+    else {
+      data_barplot <- rbind(data_barplot,dt)
+    }
+  }
+  data_barplot <- aggregate(Abundance ~ `Scientific Name` + Sample, data_barplot,sum)
+  
+  
+  data_barplot$`Scientific Name` <- reorder(data_barplot$`Scientific Name`, data_barplot$Abundance)
+  
+  data_barplot$`Scientific Name` <- factor(data_barplot$`Scientific Name`, levels = rev(c(other,levels(data_barplot$`Scientific Name`)[!levels(data_barplot$`Scientific Name`) == other])))
+  
+  n <- length(unique(data_barplot$`Scientific Name`))
+  
+  if(n > length(mypal)){
+    colpal <- colorRampPalette(mypal)(n)
+    colpal[n] <- "#BBBBBB"
+  } else {
+    colpal <- mypal
+    colpal[n] <- "#BBBBBB"
+  }
+  
+  barplot <- ggplot(data_barplot, 
+                    aes(x=Sample, y=Abundance, fill=`Scientific Name`)) + 
+    geom_bar(stat="identity") + 
+    theme(legend.text = element_text(size=8), legend.key.size = unit(8, 'mm'), axis.text.x=element_text(size = 7), axis.title.x=element_blank(), panel.background = element_blank()) + 
+    ylab("Relative Abundance (%)") +
+    scale_fill_manual(values = colpal) 
+  
+  barplot$labels$fill <- str_to_title(taxa[i])
+  
+  outname <- paste("MetaGen","Barplot",taxa[i],".png",sep = "_")
+  
+  ggsave(filename=outname,plot=barplot, device = "png", width = 15, height = 7, dpi = 300)
+  
+}
+
+
+## Preparar librerías
+
 packages <- c("data.table", "tidyverse", "vegan", "RColorBrewer","colorspace")
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) {
   install.packages(packages[!installed_packages])
-  }
+}
 invisible(lapply(packages, library, character.only = TRUE))
 
-#Preparación de los datos 
+## Espacio destinado para dar colores específicos a las variables 
+
+# RB1 = "#00FE08"
+# RB2 = "#0B6B0E"
+# MF1 = "#04E2F8"
+# MF2 = "#1114DC"
+# CMF1 = "#CB72F0"
+# CRB1 = "#6007D2"
+
+#Preparar los datos 
+
 setwd("~/Your/Path") 
-raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F) ## Dos Warnings, aún hay que checar el porque de estos y porque no sale el output como se desearía
+raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F) 
 raw_data
 raw_data[,-c(1,2,3)] <-lapply(raw_data[, -c(1,2,3)], as.integer)
-
 str(raw_data)
-
 
 taxa_data <- list()
 taxa_long_data <- list()
 Metatop <- list()
 taxa <- c("phylum", "family","genus", "species") 
-taxa_data 
-taxa 
 
-# En esta primera función se hace el filtrado de los datos por Rank, por Abundance y el top (10,20, etc). Primero se filtran los datos comparandolos contra la columna "Rank" y los resultados son depositados en la lista
-
+## Filtrado de datos 
 for (i in 1:length(taxa)) {  
   taxa_data[[i]] <- raw_data %>% filter(Rank == taxa[i]) 
-  taxa_data[[i]] <- taxa_data[[i]][,-1] 
+  taxa_data[[i]] <- taxa_data[[i]][,c(-1,-2)] 
   taxa_long_data[[i]] <- taxa_data[[i]] %>% 
     as.data.table() %>% 
     melt(id = c("Scientific.Name"), variable.name = "Sample", value.name = "Abundance") %>% 
     filter(Abundance != 0) 
   df <- taxa_long_data[[i]] 
-  colnames(df) <- c("Scientific Name","Sample","Abundance") 
+  colnames(taxa_long_data[[i]]) <- c("Scientific Name","Sample","Abundance") 
   #df$Sample <- df$Sample %>% str_remove_all('[r\\d]')  ## Opcional 
   taxa_long_data[[i]] <- df 
-  treatments <- unique(df$Sample) 
-  for (k in treatments) { 
-    dt <- df[Sample == k] 
+  treatments <- unique(taxa_long_data[[i]]$Sample) 
+ 
+   for (k in treatments) { 
+    dt <- taxa_long_data[[i]][Sample == k] 
     dt <- aggregate(Abundance ~ ., dt, sum) 
     dt <- dt %>% arrange(desc(Abundance)) %>% slice(1:10) 
     RelAb <- sum(dt$Abundance) 
     dt <- as.data.table(dt)
     dt[,Abundance := 100*Abundance/RelAb]
+    
     if (k == treatments[1]){
       top_df <- rbind(dt)
     }
@@ -59,52 +150,58 @@ for (i in 1:length(taxa)) {
 names(taxa_data) <- taxa 
 names(taxa_long_data) <- taxa
 names(Metatop) <- taxa
-dt
-df
-taxa_data
-taxa_long_data
-Metatop
+#dt
+#df
+# taxa_data
+# taxa_long_data
+# Metatop
 
 for (i in 1:4) {
   name = paste("MetaGen",taxa[i])
   write_csv(taxa_data[[i]],file=paste("taxa_data",name,".csv"))
   write_csv(taxa_long_data[[i]],file=paste("taxa_long",name,".csv"))
   write_csv(Metatop[[i]],file=paste("MetaTop",name,".csv"))
-
 }
 
-
-#color palette and filepath
-library("colorspace")
-pal <- choose_palette()
-mypal<- c(pal(7))
-
-#bcol.pal <- 
-  #mypal <- c("#f29080", "#f27933", "#ffba4a", "#fbff91", "#78a644", "#91ffd9", "#77def2", "#396799", "#91a0ff", "#c936ff", "#99268f", "#ff369e", "#ff363c", "#8c3b1d", "#a6754b", "#99844b", "#b9ff40", "#30e676", "#188c7d", "#2bc0ff", "#1a4099", "#3643ff", "#e89cff", "#cc74a6", "#bf284b")
-
-
-#create barplots, function from utils_kks.R
-
-for (i in 1:length(taxa)){
-  x  <- Metatop[[i]]
-  genbarplot(x,1,taxa[i],"MetaGen",mypal)
-}
 
 #diversity tables and boxplots
-boxplotpath <- ""
 
 diversity <- list()
 
 for (i in 1:length(taxa)) {
-  diversity[[i]] <- genDiversityIndexTable(raw_data, tax = taxa[i])
-}
+  shannonS <- c()
+  simpsonS <- c()
+  df <- raw_data %>% filter(Rank == taxa[1])
+  df <- df[,c(-1,-2)]
+  df <- na.omit(df)
+  samples <- names(df[,2:length(df)])
+    
+  for (col in 2:length(df)){
+    #shannon
+    dfcol <- df[,col]
+    shannon <- diversity(dfcol, index="shannon")
+    shannonS <- c(shannonS,shannon)
+      
+      #simpson
+    dfcol <-df[,col]
+    simpson <- diversity(dfcol, index="simpson")
+    simpsonS <- c(simpsonS,simpson)
+    }
+    #tabla samples
+  indexes <- data.frame(samples,shannonS,simpsonS)
+  names(indexes) <- c("Sample", "Shannon", "Simpson")
+    
+    
+  diversity[[i]] <- indexes
+  }
+
 
 names(diversity) <- taxa
 diversityT <- list()
 
 for (i in 1:length(diversity)) {
   df <- diversity[[i]]
-  df$Sample <- df$Sample %>% str_remove_all('[r\\d]') 
+  df$Sample <- df$Sample %>% str_remove_all('[r\\d]')
   diversityT[[i]] <- df
   rm(df)
 }
@@ -113,7 +210,23 @@ names(diversityT) <- taxa
 setwd(boxplotpath)
 for (i in 1:length(diversity)){
   name = paste("MetaGen",taxa[i])
-  genboxplots(diversityT[[i]],name)
+  write.csv(diversity[[i]],file=paste(name,".csv"))    #Shannon Index
+    shannonboxname <- paste(name,"_ShannonIndexBoxplot", ".png", sep="")
+    shannonbox <- ggplot(diversityT[[i]], aes(x= Sample, y= Shannon)) + 
+      ylab("Shannon Index") + 
+      geom_boxplot(fill=c(CRB1, RB1), fatten=1, outlier.shape = NA) + 
+      theme_light() + 
+      theme(axis.title.x = element_blank())
+    ggsave(filename = shannonboxname, plot = shannonbox, device="png", width = 10, height = 10, dpi = 300)
+    
+    #Simpson Index
+    simpsonboxname <- paste(name,"_SimpsonIndexBoxplot", ".png", sep="")
+    simpsonbox <- ggplot(diversityT[[i]], aes(x= Sample, y= Simpson)) + 
+      ylab("Simpson Index") + 
+      geom_boxplot(fill=c(CRB1, RB1), fatten=1, outlier.shape = NA) + 
+      theme_light() + 
+      theme(axis.title.x = element_blank())
+    ggsave(filename = simpsonboxname, plot = simpsonbox, device="png", width = 10, height = 10, dpi = 300)
+  
   write.csv(diversity[[i]],file=paste(name,".csv"))
 }
-
