@@ -1,20 +1,16 @@
-## Función para agrupar los datos que restan (otro 1%)
+## Función para determinar abundancia (normalizar datos) 
 
 
 otherize <- function(dt,limite,other) {
-  #dt = data table, limite = threshold for changing scientific name to other
   totAb <- sum(dt$Abundance)
   dt[,Abundance := 100*Abundance/totAb]
   dt[Abundance < limite, `Scientific Name` := other]
   dt <- aggregate(Abundance ~ ., dt, sum)
 }
 
+#Función para generación de barplots
 
 genbarplot <- function(x,limite,tax,name,pal){
-  ## x = data table long form
-  ## limite = limite en porcentaje para cambiar scientific name a other
-  ## tax = str of tax to make barplot of
-  ## name = distinct name for file
   
   other <- paste("Other <", limite,"%",sep = "")
   
@@ -106,7 +102,7 @@ genboxplots <- function(indexesT,name){
   simpsonboxname <- paste(name,"_SimpsonIndexBoxplot", ".png", sep="")
   simpsonbox <- ggplot(indexesT, aes(x= Sample, y= Simpson)) + 
     ylab("Simpson Index") + 
-    geom_boxplot(fatten=1, outlier.shape = NA) +
+    geom_boxplot(fatten=1, outlier.shape = NA) + 
     theme_light() + 
     theme(axis.title.x = element_blank())
   ggsave(filename = simpsonboxname, plot = simpsonbox, device="png", width = 10, height = 10, dpi = 300)
@@ -114,6 +110,8 @@ genboxplots <- function(indexesT,name){
 
 ## Paleta de colores general
 
+bcol.pal <- 
+  mypal <- c("#f29080", "#f27933", "#ffba4a", "#fbff91", "#78a644", "#91ffd9", "#77def2", "#396799", "#91a0ff", "#c936ff", "#99268f", "#ff369e", "#ff363c", "#8c3b1d", "#a6754b", "#99844b", "#b9ff40", "#30e676", "#188c7d", "#2bc0ff", "#1a4099", "#3643ff", "#e89cff", "#cc74a6", "#bf284b")
 
 ## Preparar librerías
 
@@ -197,8 +195,6 @@ for (i in 1:4) {
 
 ## Visualización de datos
 ##Tablas y Boxplots 
-bcol.pal <- 
-  mypal <- c("#f29080", "#f27933", "#ffba4a", "#fbff91", "#78a644", "#91ffd9", "#77def2", "#396799", "#91a0ff", "#c936ff", "#99268f", "#ff369e", "#ff363c", "#8c3b1d", "#a6754b", "#99844b", "#b9ff40", "#30e676", "#188c7d", "#2bc0ff", "#1a4099", "#3643ff", "#e89cff", "#cc74a6", "#bf284b")
 
 for (i in 1:length(taxa)){
   x  <- taxa_long_data[[i]]
