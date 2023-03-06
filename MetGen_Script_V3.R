@@ -221,8 +221,8 @@ for (i in 1:length(diversity)) {
 names(diversityT) <- taxa
 
 for (i in 1:length(diversity)){
-  name = paste("MetaGen",taxa[i])
+  name = paste("MetaGen",taxa[i],sep="_")
   genboxplots(diversityT[[i]],name)
-  write.csv(diversity[[i]],file=paste(name,".csv"))
+  write.csv(diversity[[i]],file=paste(name,".csv",sep="_"))
 }
 
