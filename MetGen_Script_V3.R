@@ -186,10 +186,10 @@ Metatop
 ## Generación de documentos a partir del filtrado de los datos 
 
 for (i in 1:4) {
-  name = paste("MetaGen",taxa[i])
-  write_csv(taxa_data[[i]],file=paste("taxa_data",name,".csv"))
-  write_csv(taxa_long_data[[i]],file=paste("taxa_long",name,".csv"))
-  write_csv(Metatop[[i]],file=paste("MetaTop",name,".csv"))
+  name = paste("MetaGen",taxa[i],sep = "_")
+  write_csv(taxa_data[[i]],file=paste("Taxa_data",name,".csv",sep="_"))
+  write_csv(taxa_long_data[[i]],file=paste("Taxa_long",name,".csv",sep="_"))
+  write_csv(Metatop[[i]],file=paste("MetaTop",name,".csv",sep="_"))
 }
 
 
