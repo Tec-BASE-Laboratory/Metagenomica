@@ -97,7 +97,7 @@ genboxplots <- function(indexesT,name){
   shannonboxname <- paste(name,"_ShannonIndexBoxplot", ".png", sep="")
   shannonbox <- ggplot(indexesT, aes(x= Sample, y= Shannon)) + 
     ylab("Shannon Index") + 
-    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) +
+    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) + #Usar fill = c(C1,C2,...) para dar colores específicos a las variables
     theme_light() + 
     theme(axis.title.x = element_blank())
   ggsave(filename = shannonboxname, plot = shannonbox, device="png", width = 10, height = 10, dpi = 300)
@@ -106,7 +106,7 @@ genboxplots <- function(indexesT,name){
   simpsonboxname <- paste(name,"_SimpsonIndexBoxplot", ".png", sep="")
   simpsonbox <- ggplot(indexesT, aes(x= Sample, y= Simpson)) + 
     ylab("Simpson Index") + 
-    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) +
+    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) + #Usar fill = c(C1,C2,...) para dar colores específicos a las variables 
     theme_light() + 
     theme(axis.title.x = element_blank())
   ggsave(filename = simpsonboxname, plot = simpsonbox, device="png", width = 10, height = 10, dpi = 300)
@@ -115,7 +115,40 @@ genboxplots <- function(indexesT,name){
 ## Paleta de colores general
 
 bcol.pal <- 
-  mypal <- c("#f29080", "#f27933", "#ffba4a", "#fbff91", "#78a644", "#91ffd9", "#77def2", "#396799", "#91a0ff", "#c936ff", "#99268f", "#ff369e", "#ff363c", "#8c3b1d", "#a6754b", "#99844b", "#b9ff40", "#30e676", "#188c7d", "#2bc0ff", "#1a4099", "#3643ff", "#e89cff", "#cc74a6", "#bf284b")
+  mypal <- c("#f29080",
+             "#f27933",
+             "#ffba4a",
+             "#fbff91", 
+             "#78a644", 
+             "#91ffd9",
+             "#77def2",
+             "#396799",
+             "#91a0ff",
+             "#c936ff", 
+             "#99268f", 
+             "#ff369e", 
+             "#ff363c", 
+             "#8c3b1d", 
+             "#a6754b", 
+             "#99844b", 
+             "#b9ff40", 
+             "#30e676", 
+             "#188c7d", 
+             "#2bc0ff", 
+             "#1a4099",
+             "#3643ff",
+             "#e89cff", 
+             "#cc74a6", 
+             "#bf284b")
+
+## Espacio destinado para dar colores específicos a las variables 
+
+# C1 = "#00FE08"
+# C2 = "#0B6B0E"
+# C3 = "#04E2F8"
+# C4 = "#1114DC"
+# C5 = "#CB72F0"
+# C6 = "#6007D2"
 
 ## Preparar librerías
 
@@ -126,14 +159,6 @@ if (any(installed_packages == FALSE)) {
 }
 invisible(lapply(packages, library, character.only = TRUE))
 
-## Espacio destinado para dar colores específicos a las variables 
-
-# C1 = "#00FE08"
-# C2 = "#0B6B0E"
-# C3 = "#04E2F8"
-# C4 = "#1114DC"
-# C5 = "#CB72F0"
-# C6 = "#6007D2"
 
 ## Preparación de datos 
 
