@@ -1,16 +1,20 @@
-## Función para determinar abundancia (normalizar datos) 
+## Función para agrupar los datos que restan (otro 1%)
 
 
 otherize <- function(dt,limite,other) {
+  #dt = data table, limite = threshold for changing scientific name to other
   totAb <- sum(dt$Abundance)
   dt[,Abundance := 100*Abundance/totAb]
   dt[Abundance < limite, `Scientific Name` := other]
   dt <- aggregate(Abundance ~ ., dt, sum)
 }
 
-#Función para generación de barplots
 
 genbarplot <- function(x,limite,tax,name,pal){
+  ## x = data table long form
+  ## limite = limite en porcentaje para cambiar scientific name a other
+  ## tax = str of tax to make barplot of
+  ## name = distinct name for file
   
   other <- paste("Other <", limite,"%",sep = "")
   
@@ -93,7 +97,7 @@ genboxplots <- function(indexesT,name){
   shannonboxname <- paste(name,"_ShannonIndexBoxplot", ".png", sep="")
   shannonbox <- ggplot(indexesT, aes(x= Sample, y= Shannon)) + 
     ylab("Shannon Index") + 
-    geom_boxplot(fatten=1, outlier.shape = NA) +
+    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) +
     theme_light() + 
     theme(axis.title.x = element_blank())
   ggsave(filename = shannonboxname, plot = shannonbox, device="png", width = 10, height = 10, dpi = 300)
@@ -102,7 +106,7 @@ genboxplots <- function(indexesT,name){
   simpsonboxname <- paste(name,"_SimpsonIndexBoxplot", ".png", sep="")
   simpsonbox <- ggplot(indexesT, aes(x= Sample, y= Simpson)) + 
     ylab("Simpson Index") + 
-    geom_boxplot(fatten=1, outlier.shape = NA) + 
+    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) +
     theme_light() + 
     theme(axis.title.x = element_blank())
   ggsave(filename = simpsonboxname, plot = simpsonbox, device="png", width = 10, height = 10, dpi = 300)
@@ -124,16 +128,16 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 ## Espacio destinado para dar colores específicos a las variables 
 
-# RB1 = "#00FE08"
-# RB2 = "#0B6B0E"
-# MF1 = "#04E2F8"
-# MF2 = "#1114DC"
-# CMF1 = "#CB72F0"
-# CRB1 = "#6007D2"
+# C1 = "#00FE08"
+# C2 = "#0B6B0E"
+# C3 = "#04E2F8"
+# C4 = "#1114DC"
+# C5 = "#CB72F0"
+# C6 = "#6007D2"
 
 ## Preparación de datos 
 
-setwd("~/Tec_BASE/ProyectosTCB/MetGen_Totoaba//") 
+setwd("~/Tec_BASE/ProyectosTCB/MetGen_MuDe/Analisis_Oct/Analisis_General_oct/") 
 raw_data <- read.table(file.choose(), header = T, sep = ",",quote = "\"", stringsAsFactors = F, fill = F) 
 raw_data
 raw_data[,-c(1,2,3)] <-lapply(raw_data[, -c(1,2,3)], as.integer)
@@ -174,6 +178,8 @@ for (i in 1:length(taxa)) {
   Metatop[[i]] <- top_df
 }
 
+
+treatcol <- unique(treatments %>% str_remove_all('[r\\d]'))
 names(taxa_data) <- taxa 
 names(taxa_long_data) <- taxa
 names(Metatop) <- taxa
@@ -184,7 +190,6 @@ taxa_long_data
 Metatop
 
 ## Generación de documentos a partir del filtrado de los datos 
-
 for (i in 1:4) {
   name = paste("MetaGen",taxa[i],sep = "_")
   write_csv(taxa_data[[i]],file=paste("Taxa_data",name,".csv",sep="_"))
