@@ -7,9 +7,12 @@ Este programa busca hacer análisis estadísticos y permitir al usuario la visua
 # Utils y librerías 
 La primera parte del código está diseñada para declarar las diferentes funciones que serán utilizadas para la creación de barplots y boxplots que formarán parte de los resultados de este análisis.
 
-Es importante correr estas lineas del código ya que las funciones no se encuentran en ninguna librería y son necesarias para el funcionamiento del programa.
+Es importante correr estas lineas del código ya que algunas de las funciones no se encuentran en ninguna librería y son necesarias para el funcionamiento del programa.
 
 A su vez, también se instalan (en caso de no tenerlas) y se llama a las librerías que serán utilizadas para hacer los diferentes análisis estadísticos.  
+
+En la línea ` geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA)` se generan colores aleatorios para los boxplots de los indices shannon y simpson. Es posible cambiar el parámetro `fill =` para poder poner colores específicos a las variables. Esto se debe de hacer de la siguiente forma: `fill = c(C1,C2,C3,...`. Se recomienda usar los códigos de hexadecimales de color para poder obtener colores más específicos y personalizados. 
+7
 # Datos
 En la segunda sección del código se declara el pathway de la carpeta donde se encuentran los datos con los cuales va a trabajar el programa. También, dentro de esta carpeta se van a guardar los diferentes documentos e imágenes resultantes de este análisis. 
 
