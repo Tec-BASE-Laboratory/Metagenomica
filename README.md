@@ -12,7 +12,7 @@ Es importante correr estas lineas del código ya que algunas de las funciones no
 
 A su vez, también se instalan (en caso de no tenerlas) y se llama a las librerías que serán utilizadas para hacer los diferentes análisis estadísticos.  
 
-En la línea 
+En la línea:
 ```Rscript
 geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA)
 ```
@@ -23,12 +23,12 @@ En la segunda sección del código se declara el pathway de la carpeta donde se 
 
 Dentro de esta sección se hace un tratado de los datos para asegurar que el formato es el correcto y R o Rstudio no arroje códigos de error y códigos de advertencia. El input de este código debe de ser un archivo **.csv** o **.txt** proveniente del análisis taxonómico de [KRAKEN 2](https://github.com/DerrickWood/kraken2.). 
 
-En la línea
+En la línea:
 ```Rscript
 raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F)
 ``` 
 
-se debe de modificar el parámetro "sep" dependiendo del tipo de documento que se esté usando: para **.txt** se usa `"\t"` y para **.csv** se usa `","`.  
+se debe de modificar el parámetro `"sep ="` dependiendo del tipo de documento que se esté usando: para **.txt** se usa `"\t"` y para **.csv** se usa `","`.  
 
 
 # Filtrado
