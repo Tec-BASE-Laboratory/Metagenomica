@@ -1,7 +1,7 @@
 # Metagenómica 
 Proyecto desarrollado por alumnos y docentes del Laboratorio Nacional de Secuenciación Genomica del Instituto Tecnológico y de Estudios superiores de Monterrey.
 
-Este programa fue diseñado para hacer un análisis metagenómico de 16S y shotgun, a partir de datos en formato TXT o CSV provenientes de un análisis taxonómico de [KRAKEN 2](https://github.com/DerrickWood/kraken2.) 
+Este programa fue diseñado para hacer un análisis metagenómico de 16S y shotgun, a partir de datos en formato TXT o CSV provenientes de un análisis taxonómico de [KRAKEN 2](https://github.com/DerrickWood/kraken2.).
 
 Este programa busca hacer análisis estadísticos y permitir al usuario la visualización de los datos taxonómicos arrojados por KRAKEN 2. 
 
@@ -35,14 +35,26 @@ Es recomendable modificar solamente los nombres de las muestras (samples) para e
   
 En la línea:
   
-```Rscript
-raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F)
+```Rscript 
+raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "", stringsAsFactors = F, fill = F)
 ```
 
 Se debe de modificar el parámetro `"sep ="` dependiendo del tipo de documento que se esté usando: para **.txt** se usa `"\t"` y para **.csv** se usa `","`.
 
-Las siguientes líneas de este código están dirigidas para asegurar que los datos se hayan introducido de manera correcta y no haya una pérdida de datos, se conviertan valores numéricos a strings y evitar que existan NA dentro de la tabla con la que se trabajará. 
-
+Las siguientes líneas de este código están dirigidas para asegurar que los datos se hayan introducido de manera correcta y no haya una pérdida de datos o se conviertan valores numéricos a strings y evitar que existan NA dentro de la tabla con la que se trabajará. Las líneas:
+  
+```Rscript
+raw_data
+str(raw_data)
+```
+funcionan para poder visualizar como fueron cargados los datos a R y ver si es que existe algún problema con los mismos. Si todo fue cargado de manera correcta se deberían de ver los datos de la misma manera que se ve el documento de origen. En el caso de `srt(raw_data)` se deben de ver los datos de la siguiente manera: 
+            
+            ` $ Rank           : chr  "unclassified" "superkingdom" "superkingdom" "superkingdom" ...
+ $ TaxId          : int  0 2 10239 2157 2759 200783 200795 200918 28890 200930 ...
+ $ Scientific.Name: chr  "Unknown" "Bacteria <bacteria>" "Viruses" "Archaea" ...
+ $ Sample 1       : int  33369 25062 0 1 0 0 1 1 1 0 ...
+ $ Sample 2       : int  184966 73818 0 1 0 1 39 20 1 3 ...
+ $ Sample 3       : int  329303 75747 0 0 0 0 29 0 0 0 ...`
 
 # Filtrado
 
