@@ -23,7 +23,7 @@ En la segunda sección del código se declara el pathway de la carpeta donde se 
 
 Dentro de esta sección se hace un tratado de los datos para asegurar que el formato es el correcto y R o Rstudio no arroje códigos de error y códigos de advertencia. El input de este código debe de ser un archivo **.csv** o **.txt** proveniente del análisis taxonómico de [KRAKEN 2](https://github.com/DerrickWood/kraken2.). 
 
-El input debe de estar acomodado de la siguiente manera: 
+El input se debe de ver acomodado de la siguiente manera: 
 | Rank | TaxId | Scientific Name | Sample 1 | Sample 2 | Sample 3 |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | unclassified  | 0 | Uknown | 68 | 1232 | 1696 |
