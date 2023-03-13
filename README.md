@@ -23,6 +23,14 @@ En la segunda sección del código se declara el pathway de la carpeta donde se 
 
 Dentro de esta sección se hace un tratado de los datos para asegurar que el formato es el correcto y R o Rstudio no arroje códigos de error y códigos de advertencia. El input de este código debe de ser un archivo **.csv** o **.txt** proveniente del análisis taxonómico de [KRAKEN 2](https://github.com/DerrickWood/kraken2.). 
 
+El input debe de estar acomodado de la siguiente manera: 
+| Rank | TaxId | Scientific Name | Sample 1 | Sample 2 | Sample 3 |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| unclassified  | 0 | Uknown | 68 | 1232 | 1696 |
+| superkingdom | 2 | Bacteria <bacteria> | 66708 | 76666 | 64937
+| genus | 131079 | Limnobacter | 0 | 0 | 0 |
+| species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 |
+  
 En la línea:
 ```Rscript
 raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F)
