@@ -31,7 +31,7 @@ El input se debe de ver acomodado de la siguiente manera:
 | genus | 131079 | Limnobacter | 0 | 0 | 0 |
 | species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 |
   
-Es recomendable modificar solamente los nombres de las muestras (samples) para evitar cualquier inconveniente con el programa. Los nombres de las muestras pueden ser modificados libremente dependiendo de lo que se busque observar en el estudio. Más información de como se tratan, filtran y agrupan las muestras puede ser observado en la sección de [**Filtrado**](# Filtrado)
+Es recomendable modificar solamente los nombres de las muestras (samples) para evitar cualquier inconveniente con el programa. Los nombres de las muestras pueden ser modificados libremente dependiendo de lo que se busque observar en el estudio. Más información de como se tratan, filtran y agrupan las muestras puede ser observado en la sección de [**Filtrado**](#Filtrado)
   
 En la línea:
   
@@ -44,6 +44,6 @@ Se debe de modificar el parámetro `"sep ="` dependiendo del tipo de documento q
 Las siguientes líneas de este código están dirigidas para asegurar que los datos se hayan introducido de manera correcta y no haya una pérdida de datos, se conviertan valores numéricos a strings y evitar que existan NA dentro de la tabla con la que se trabajará. 
 
 
-# Filtrado
+#Filtrado
 
 En esta parte del programa se encuentra un 
