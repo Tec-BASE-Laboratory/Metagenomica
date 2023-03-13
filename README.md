@@ -31,7 +31,7 @@ El input se debe de ver acomodado de la siguiente manera:
 | genus | 131079 | Limnobacter | 0 | 0 | 0 |
 | species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 |
   
-Es recomendable modificar solamente los nombres de las muestras (samples) para evitar cualquier inconveniente con el programa. Los nombres de las muestras pueden ser modificados libremente dependiendo de lo que se busque observar en el estudio. Más información de como se tratan, filtran y agrupan las muestras puede ser observado en la sección de **Filtrado**
+Es recomendable modificar solamente los nombres de las muestras (samples) para evitar cualquier inconveniente con el programa. Los nombres de las muestras pueden ser modificados libremente dependiendo de lo que se busque observar en el estudio. Más información de como se tratan, filtran y agrupan las muestras puede ser observado en la sección de [**Filtrado**](# Filtrado)
   
 En la línea:
   
