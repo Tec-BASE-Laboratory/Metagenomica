@@ -74,8 +74,23 @@ Las siguientes líneas están destinadas a la creación de listas vacías para p
 En esta parte del programa se encuentra un loop que se encarga de filtrar los datos dependiendo del grupo taxonómico al que pertenecen **"phyllum"**, **"family"**, **"genus"**, o **"species"**. Esta sección del código tiene varios parámetros personalizables para poder satisfacer las necesidades de diferentes estudios. Uno de estos parámetros es el de la línea: 
 
 ```Rscript
-df$Sample <- df$Sample %>% str_remove_all('[r\\d]')
+#taxa_long_data[[i]]$Sample <- taxa_long_data[[i]]$Sample  %>% str_remove_all('[r\\d]') 
 ```
-Esta línea permite agrupar los datos de las muestras para poner juntas las diferentes réplicas de cada muestra. Esta línea está comentada por default para evitar el agrupamiento de muestras con nombres similares. Ejemplo: 
+Esta línea permite agrupar los datos de las muestras para poner juntas las diferentes réplicas de cada muestra. Esta línea está comentada por default para evitar el agrupamiento de muestras con nombres similares. Ejemplo en un data frame con los siguientes datos: 
+
+| Rank | TaxId | Scientific Name | SP1 | SP2 | SP3 | SP4
+| --- | --- | --- | --- | --- | --- | --- |
+| unclassified | 0 | Uknown | 68 | 1232 | 1696 | 22013 |
+| superkingdom | 2 | Bacteria (bacteria) | 66708 | 76666 | 64937 | 25496 |
+| genus | 131079 | Limnobacter| 0 | 0 | 0 | 90 |
+| species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 | 10 |
+
+Al momento de hacer el filtrado de los datos no se van a reportar los resultados como muestras individuales "SP1, SP2, SP3, SP4", sino serán unidos todos los datos y serán reportados como las réplicas de SP. Es recomendable indicar códigos específicos para cada muestra y en caso de tener réplicas, poner los números. Es decir, en vez de poner: "Muestra1.1, Muestra1.2, Muestra2.1, Muestra2.2" , es mejor usar un código del estilo "A1, A2, B1, B2", así se agrupan las diferentes muestras con sus réplicas. 
+
 
 Dentro de este mismo loop se filtran los datos para poder obtener un ** Top n** de los datos, es decir, obtener un Top n de especies, generos, familias y filos. Se puede modificar el tamaño del top dependiendo de las necesidades del estudio. El default de este programa es un Top 10. 
+
+# Visualización de datos 
+## Generación de tablas 
+## Generación de Boxplots 
+
