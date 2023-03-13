@@ -31,12 +31,17 @@ El input se debe de ver acomodado de la siguiente manera:
 | genus | 131079 | Limnobacter | 0 | 0 | 0 |
 | species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 |
   
+Es recomendable modificar solamente los nombres de las muestras (samples) para evitar cualquier inconveniente con el programa. Los nombres de las muestras pueden ser modificados libremente dependiendo de lo que se busque observar en el estudio. Más información de como se tratan, filtran y agrupan las muestras puede ser observado en la sección de **Filtrado**
+  
 En la línea:
+  
 ```Rscript
 raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "\"", stringsAsFactors = F, fill = F)
-``` 
+```
 
-se debe de modificar el parámetro `"sep ="` dependiendo del tipo de documento que se esté usando: para **.txt** se usa `"\t"` y para **.csv** se usa `","`.  
+Se debe de modificar el parámetro `"sep ="` dependiendo del tipo de documento que se esté usando: para **.txt** se usa `"\t"` y para **.csv** se usa `","`.
+
+Las siguientes líneas de este código están dirigidas para asegurar que los datos se hayan introducido de manera correcta y no haya una pérdida de datos, se conviertan valores numéricos a strings y evitar que existan NA dentro de la tabla con la que se trabajará. 
 
 
 # Filtrado
