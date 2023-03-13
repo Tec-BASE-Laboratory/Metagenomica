@@ -49,13 +49,16 @@ str(raw_data)
 ```
 funcionan para poder visualizar como fueron cargados los datos a R y ver si es que existe algún problema con los mismos. Si todo fue cargado de manera correcta se deberían de ver los datos de la misma manera que se ve el documento de origen. En el caso de `srt(raw_data)` se deben de ver los datos de la siguiente manera: 
             
- `$ Rank           : chr  "unclassified" "superkingdom" "superkingdom" "superkingdom" ...`
- `$ TaxId          : int  0 2 10239 2157 2759 200783 200795 200918 28890 200930 ...`
- `$ Scientific.Name: chr  "Unknown" "Bacteria <bacteria>" "Viruses" "Archaea" ...`
- `$ Sample 1       : int  33369 25062 0 1 0 0 1 1 1 0 ...`
- `$ Sample 2       : int  184966 73818 0 1 0 1 39 20 1 3 ...`
- `$ Sample 3       : int  329303 75747 0 0 0 0 29 0 0 0 ...`
+ ```
+ $ Rank           : chr  "unclassified" "superkingdom" "superkingdom" "superkingdom" ...
+ $ TaxId          : int  0 2 10239 2157 2759 200783 200795 200918 28890 200930 ...
+ $ Scientific.Name: chr  "Unknown" "Bacteria <bacteria>" "Viruses" "Archaea" ...
+ $ Sample 1       : int  33369 25062 0 1 0 0 1 1 1 0 ...
+ $ Sample 2       : int  184966 73818 0 1 0 1 39 20 1 3 ...
+ $ Sample 3       : int  329303 75747 0 0 0 0 29 0 0 0 ...
 
+```
+            
 # Filtrado
 
 En esta parte del programa se encuentra un 
