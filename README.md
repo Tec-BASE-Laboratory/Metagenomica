@@ -25,12 +25,12 @@ Dentro de esta sección se hace un tratado de los datos para asegurar que el for
 
 El input se debe de ver acomodado de la siguiente manera: 
 
-| Rank | TaxId | Scientific Name | Sample 1 | Sample 2 | Sample 3 |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- 
-| unclassified  | 0 | Uknown | 68 | 1232 | 1696 
-| superkingdom | 2 | Bacteria <bacteria> | 66708 | 76666 | 64937
-| genus | 131079 | Limnobacter | 0 | 0 | 0 
-| species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 
+| Rank | TaxId | Scientific Name | Sample 1 | Sample 2 | Sample 3 | 
+| --- | --- | --- | --- | --- | --- |
+| unclassified  | 0 | Uknown | 68 | 1232 | 1696 |
+| superkingdom | 2 | Bacteria <bacteria> | 66708 | 76666 | 64937 | 
+| genus | 131079 | Limnobacter | 0 | 0 | 0 |
+| species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 |
 
 Es recomendable modificar solamente los nombres de las muestras (samples) para evitar cualquier inconveniente con el programa. Los nombres de las muestras pueden ser modificados libremente dependiendo de lo que se busque observar en el estudio. Más información de como se tratan, filtran y agrupan las muestras puede ser observado en la sección de [**Filtrado**](#Filtrado)
   
