@@ -44,6 +44,6 @@ Se debe de modificar el parámetro `"sep ="` dependiendo del tipo de documento q
 Las siguientes líneas de este código están dirigidas para asegurar que los datos se hayan introducido de manera correcta y no haya una pérdida de datos, se conviertan valores numéricos a strings y evitar que existan NA dentro de la tabla con la que se trabajará. 
 
 
-#Filtrado
+# Filtrado
 
 En esta parte del programa se encuentra un 
