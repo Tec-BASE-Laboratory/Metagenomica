@@ -29,7 +29,7 @@ El input se debe de ver acomodado de la siguiente manera:
 | Rank | TaxId | Scientific Name | Sample 1 | Sample 2 | Sample 3 | 
 | --- | --- | --- | --- | --- | --- |
 | unclassified  | 0 | Uknown | 68 | 1232 | 1696 |
-| superkingdom | 2 | `Bacteria <bacteria>` | 66708 | 76666 | 64937 | 
+| superkingdom | 2 | Bacteria (bacteria) | 66708 | 76666 | 64937 | 
 | genus | 131079 | Limnobacter| 0 | 0 | 0 |
 | species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 |
 
@@ -42,11 +42,20 @@ raw_data <- read.table(file.choose(), header = T, sep = "\t",quote = "", strings
 
 Se debe de modificar el parámetro `"sep ="` dependiendo del tipo de documento que se esté usando: para **.txt** se usa `"\t"` y para **.csv** se usa `","`.
 
-Las siguientes líneas de este código están dirigidas para asegurar que los datos se hayan introducido de manera correcta y no haya una pérdida de datos o se conviertan valores numéricos a strings y evitar que existan NA dentro de la tabla con la que se trabajará. Las líneas:
+Las siguientes líneas de este código están dirigidas para asegurar que los datos se hayan introducido de manera correcta y no haya una pérdida de datos o se conviertan valores numéricos a strings y evitar que existan NA dentro de la tabla con la que se trabajará. 
+
+La línea: 
+```Rscript
+raw_data <- raw_data[,c(n1,n2,n3)]
+```
+sirve para eliminar columnas que se hayan agregado en los pasos anteriores, ya sea al momento de cargar los datos, o al convertir los datos a números. Esta línea se puede modificar dependiendo del número de columnas que se hayan agregado. Ejemplo: si se agregaron dos columnas al final de un data frame que contenía 15 columnas originalmente, se tendrían que eliminar las columnas 16 y 17 (las dos que se agregaron). La línea quedaría de la siguiente manera `raw_data <- raw_data[,-c(16,17)]` de esta forma se eliminan las dos columnas agregadas por coerción. Esto no significa que haya una pérdida de datos, a veces las tablas que son arrojadas por KRAKEN contienen celdas invisibles que R las toma como columnas vacias y NA
+
+Las líneas:
   
-Rscript
+```Rscript
 raw_data
 str(raw_data)
+```
 
 funcionan para poder visualizar como fueron cargados los datos a R y ver si es que existe algún problema con los mismos. Si todo fue cargado de manera correcta se deberían de ver los datos de la misma manera que se ve el documento de origen. En el caso de `srt(raw_data)` se deben de ver los datos de la siguiente manera: 
             
@@ -59,10 +68,14 @@ funcionan para poder visualizar como fueron cargados los datos a R y ver si es q
  $ Sample 3       : int  329303 75747 0 0 0 0 29 0 0 0 ...
 ```
 Las siguientes líneas están destinadas a la creación de listas vacías para poder hacer el siguiente paso que es el filtrado de los datos a partir de 4 grupos taxonómicos. 
-
             
 # Filtrado
 
-En esta parte del programa se encuentra un loop que se encarga de filtrar los datos dependiendo del grupo taxonómico al que pertenecen **"phyllum"**, **"family"**, **"genus"**, o **"species"**. 
-            
+En esta parte del programa se encuentra un loop que se encarga de filtrar los datos dependiendo del grupo taxonómico al que pertenecen **"phyllum"**, **"family"**, **"genus"**, o **"species"**. Esta sección del código tiene varios parámetros personalizables para poder satisfacer las necesidades de diferentes estudios. Uno de estos parámetros es el de la línea: 
+
+```Rscript
+df$Sample <- df$Sample %>% str_remove_all('[r\\d]')
+```
+Esta línea permite agrupar los datos de las muestras para poner juntas las diferentes réplicas de cada muestra. Esta línea está comentada por default para evitar el agrupamiento de muestras con nombres similares. Ejemplo: 
+
 Dentro de este mismo loop se filtran los datos para poder obtener un ** Top n** de los datos, es decir, obtener un Top n de especies, generos, familias y filos. Se puede modificar el tamaño del top dependiendo de las necesidades del estudio. El default de este programa es un Top 10. 
