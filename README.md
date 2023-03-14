@@ -16,7 +16,15 @@ En la línea:
 ```Rscript
 geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA)
 ```
-se generan colores aleatorios para los boxplots de los indices shannon y simpson. Es posible cambiar el parámetro `fill =` para poder poner colores específicos a las variables. Esto se debe de hacer de la siguiente forma: `fill = c(C1,C2,C3,...`. Se recomienda usar los códigos de hexadecimales de color para poder obtener colores más específicos y personalizados. 
+se generan colores aleatorios para los boxplots de los indices shannon y simpson. Es posible cambiar el parámetro `fill =` para poder poner colores específicos a las variables. Esto se debe de hacer de la siguiente forma: `fill = c(C1,C2,C3,...`. De igual manera, si solo se busca que los boxplots cuenten con un solo color se tiene que escribir de la siguiente forma `fill = *código hexadecimal del color`, o en su defecto, si se busca que sean boxplots en blanco solo es necesario eliminar la sección de "fill =" y dejar la línea de la siguiente forma:
+
+```Rscript
+geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA)
+```
+
+Se recomienda usar los códigos de hexadecimales de color para poder obtener colores más específicos y personalizados. Si no se requiere tanta especificidad, se puede utilizar los nombres de los colores en inglés. 
+### Nota 
+Es muy importante mencionar que al modificar estos parámetros se tome en cuenta 
 
 # Datos
 En la segunda sección del código se declara el pathway de la carpeta donde se encuentran los datos con los cuales va a trabajar el programa. Es importante mencionar que dentro de esta carpeta se van a guardar los diferentes documentos e imágenes resultantes de este análisis. Por esto se recomienda destinar Carpetas específicas para cada análisis indívidual. 
@@ -91,6 +99,8 @@ Al momento de hacer el filtrado de los datos no se van a reportar los resultados
 Dentro de este mismo loop se filtran los datos para poder obtener un **Top n** de los datos, es decir, obtener un Top n de especies, generos, familias y filos. Se puede modificar el tamaño del top dependiendo de las necesidades del estudio. El default de este programa es un Top 10. 
 
 # Visualización de datos 
+
+En esta sección se generan diferentes outputs en forma de documentos **.csv**, barplots y boxplots que ayudan a la visualización de los datos, así como son útiles para hacer análisis estadísticos posteriores debido a que ya pasaron por un normalizado y filtrado. 
 ## Generación de tablas 
 ## Generación de Boxplots 
 
