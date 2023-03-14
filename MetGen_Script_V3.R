@@ -162,7 +162,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 ## Preparación de datos 
 
-setwd("~/Tec_BASE/ProyectosTCB/MetGen_MuDe/Analisis_Oct/Analisis_General_oct/") 
+setwd("~/Path/To/Your/Directory") 
 raw_data <- read.table(file.choose(), header = T, sep = ",",quote = "\"", stringsAsFactors = F, fill = F) 
 raw_data
 raw_data[,-c(1,2,3)] <-lapply(raw_data[, -c(1,2,3)], as.integer)
@@ -183,7 +183,7 @@ for (i in 1:length(taxa)) {
     melt(id = c("Scientific.Name"), variable.name = "Sample", value.name = "Abundance") %>% 
     filter(Abundance != 0) 
   colnames(taxa_long_data[[i]]) <- c("Scientific Name","Sample","Abundance") 
-  #df$Sample <- df$Sample %>% str_remove_all('[r\\d]')  ## Opcional ##
+  #taxa_long_data[[i]]$Sample <- taxa_long_data[[i]]$Sample  %>% str_remove_all('[r\\d]')  ## Opcional ##
   treatments <- unique(taxa_long_data[[i]]$Sample) 
   for (k in treatments) { 
     dt <- taxa_long_data[[i]][Sample == k] 
@@ -218,7 +218,7 @@ Metatop
 for (i in 1:4) {
   name = paste("MetaGen",taxa[i],sep = "_")
   write_csv(taxa_data[[i]],file=paste("Taxa_data",name,".csv",sep="_"))
-  write_csv(taxa_long_data[[i]],file=paste("Taxa_long",name,".csv",sep="_"))
+  write_csv(taxa_long_data[[i]],file=paste("Taxa_LD",name,".csv",sep="_"))
   write_csv(Metatop[[i]],file=paste("MetaTop",name,".csv",sep="_"))
 }
 
