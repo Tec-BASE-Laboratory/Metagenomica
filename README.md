@@ -24,7 +24,7 @@ geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA)
 
 Se recomienda usar los códigos de hexadecimales de color para poder obtener colores más específicos y personalizados. Si no se requiere tanta especificidad, se puede utilizar los nombres de los colores en inglés. 
 ### Nota 
-Es muy importante mencionar que al modificar estos parámetros se tome en cuenta 
+Es muy importante mencionar que al modificar estos parámetros se tome en cuenta lo que se busca conseguir con este análisis y la manera en la que se busca presentar los resultados.  
 
 # Datos
 En la segunda sección del código se declara el pathway de la carpeta donde se encuentran los datos con los cuales va a trabajar el programa. Es importante mencionar que dentro de esta carpeta se van a guardar los diferentes documentos e imágenes resultantes de este análisis. Por esto se recomienda destinar Carpetas específicas para cada análisis indívidual. 
