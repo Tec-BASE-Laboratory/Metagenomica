@@ -5,6 +5,10 @@ Este programa fue diseñado para hacer un análisis metagenómico de 16S y shotg
 
 Este programa busca hacer análisis estadísticos y permitir al usuario la visualización de los datos taxonómicos arrojados por KRAKEN 2. 
 
+# Datos de prueba 
+
+Si requiere hacer una prueba del código para ver su funcionamiento y poder adaptarlo a sus datos, puede descargar el archivo llamado `taxonomic_classification_ReadMe.csv` dentro del repositorio. 
+
 # Utils y librerías 
 La primera parte del código está diseñada para declarar las diferentes funciones que serán utilizadas para la creación de barplots y boxplots que formarán parte de los resultados de este análisis.
 
