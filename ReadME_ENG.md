@@ -30,7 +30,7 @@ geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA)
 
 It is recommended to use the hexadecimal code for the colors in order to get more specific and personalized colors depending on the study. If specificity is not required, the names of the colors can be used instead. 
 
-### Nota 
+### Note 
 Is very important to mention that the modification of this parameters would depend solely on the requirements of the study. It depends on what needs to be shown or analyzed. 
 
 ## Data
@@ -102,7 +102,7 @@ The following data frame is is used to give an example on how data is grouped.
 | genus | 131079 | Limnobacter| 0 | 0 | 0 | 90 |
 | species | 2060312 | Altererythrobacter sp. B11 | 0 | 0 | 2 | 10 |
 
-When filtering this dataframe by grouping, the results are not going to be shown for individual samples as "SP1, SP2, SP3, SP4", instead, they are going to be grouped into sample SP and replicates. In this case, the line must be kept as default in order to show each sample as an individual. For grouping samples, the user must define the names of the samples and its replicates using the follwoing format "A1, A2, B1, B2". In this case the user has two samples with two replicates. The code will show results from samples "A" and "B" taking each replicate with its sample. For further information and more examples on how data can be grouped go to [**Boxplot Creation**](#Boxplot-Creation)
+When filtering this dataframe by grouping, the results are not going to be shown for individual samples as "SP1, SP2, SP3, SP4", instead, they are going to be grouped into sample SP and replicates. In this case, the line must be kept as default in order to show each sample as an individual. For grouping samples, the user must define the names of the samples and its replicates using the follwoing format "A1, A2, B1, B2". In this case the user has two samples with two replicates. The code will show results from samples "A" and "B" taking each replicate with its sample. For further information and more examples on how data can be grouped go to [**Plot Creation**](#Plot-Creation)
 
 
 Inside this loop the data is filtered to obtain a **Top n** of the results. Which means the program obtains a Top "n" from the different taxonomical data from species, genus, family and phyllum. The defalut is a **Top 10** but it can be modified depending on the study and what needs to be analyzed. 
@@ -170,7 +170,7 @@ These documents should be presented with the following format:
 
 These tables are meant to allow the user use the data for further statistical analysis. 
 
-## Boxplot Creation 
+## Plot Creation 
 
 After the first twelve **.csv** documents are created, the following parts of the code are dedicated to the creation of barplots and boxplots. 
 
