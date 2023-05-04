@@ -5,11 +5,11 @@ This program was designed for making a metagenomic analysis from 16s and shotgun
 
 This program aims to create statiscal analyses and allow the user the visualization of taxonomical data from KRAKEN 2. 
 
-# Demo Data
+## Demo Data
 
 If you want to see how the code works with some demo data, you can download it on the repository. The document is called taxonomic_clasiffication_ReadMe.csv
 
-# Libraries and Utils 
+## Libraries and Utils 
 
 The firts part of the code is designed to declare different functions that will be used for the creation of barplots and boxplots that will be part of the results and analysis. 
 
@@ -33,7 +33,7 @@ It is recommended to use the hexadecimal code for the colors in order to get mor
 ### Nota 
 Is very important to mention that the modification of this parameters would depend solely on the requirements of the study. It depends on what needs to be shown or analyzed. 
 
-# Data
+## Data
 In the second section of the code, the pathway for the directory in which the analysis is going to take place is delcared. It's important to mention that every output of the analysis in the form of tables and images is goint to be saved inside this directory.  That's why it's recommended to have different Directories for each individual analysis. 
 
 This section of the code is destined to treat and format the data in order to avoid any type of errors or warnings. The input for this code must be a **.csv** or a **.txt** document from a taxonomic analysis using [KRAKEN 2](https://github.com/DerrickWood/kraken2.). 
@@ -85,7 +85,7 @@ are meant to allow the user to visualize the data and how was read by R and see 
 ```
 The following lines are related to the creation of empty lists for making the next step in the analysis, the data filtering based on 4 taxonomic groups. 
             
-# Filtering
+## Filtering
 
 In this part of the code the user can find a loop that filters the data depending on the taxonomic group they belong to **"phyllum"**, **"family"**, **"genus"**, or **"species"**. In this section, there are various personalizable parameters to satisfy the requirements of various studies. One of these parameters is the one in the next line:
 
@@ -113,7 +113,7 @@ dt <- dt %>% arrange(desc(Abundance)) %>% slice(1:10)
 ```
 The user must change `slice(1:n)`, to obtain a different Top. 
 
-# Data Visualization 
+## Data Visualization 
 
 In this section different outputs are created in the form of **.csv** documents and tables, barplots and boxplots that allow the user the visualization of the data. This outputs are helpful to make further statistical analysis because they have been filtered into different groups.
 
