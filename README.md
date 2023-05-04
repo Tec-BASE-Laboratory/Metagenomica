@@ -168,3 +168,15 @@ Los gráficos de barras se crean utilizando la función `barplots` de la secció
 
 A continuación se muestra un ejemplo de un gráfico de barras generado utilizando el programa:
 ![MetaGen_ReadME_species_Barplot_family_](https://user-images.githubusercontent.com/106264605/236337607-828736a6-ed3b-463b-8c50-4b7581c6d3ca.png)
+
+Este gráfico de barras muestra la abundancia relativa de cada familia en cada muestra.
+
+La función de diagrama de caja se encuentra en la última sección del código. Este bucle crea las tablas de índices de Shannon y Simpson, así como dos diagramas de cajas y bigotes para cada grupo taxonómico (uno para Shannon y otro para Simpson).
+
+A continuación se meustran ejemplos de los diagramas de cajas y bigotes generados por el programa. Shannon(primero) Simpson(segundo).
+
+![S SDiversity_ReadME_family_ShannonIndexBoxplot](https://user-images.githubusercontent.com/106264605/236338339-5b07228b-9875-4b88-8e45-61c2fca29c0b.png)
+
+![S SDiversity_ReadME_family_SimpsonIndexBoxplot](https://user-images.githubusercontent.com/106264605/236338358-1b2b73b8-2500-47fb-a235-bb59c6463e82.png)
+
+Los colores para los diagramas son creados aleatoriamente. En caso de querer colores específicos para los diagramas, es necesario seguir los pasos indicados en [**Utils y Librerías**](#Utils-y-Librerías)
