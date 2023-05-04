@@ -68,7 +68,7 @@ genDiversityIndexTable <- function(x, tax) {
   shannonS <- c()
   simpsonS <- c()
   df <- x %>% filter(Rank == tax)
-  df <- df[,c(-1,-2)]
+  df <- df[,-c(1,2)]
   df <- na.omit(df)
   samples <- names(df[,2:length(df)])
   
@@ -97,7 +97,7 @@ genboxplots <- function(indexesT,name){
   shannonboxname <- paste(name,"_ShannonIndexBoxplot", ".png", sep="")
   shannonbox <- ggplot(indexesT, aes(x= Sample, y= Shannon)) + 
     ylab("Shannon Index") + 
-    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) + #Usar fill = c(C1,C2,...) para dar colores específicos a las variables
+    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) +
     theme_light() + 
     theme(axis.title.x = element_blank())
   ggsave(filename = shannonboxname, plot = shannonbox, device="png", width = 10, height = 10, dpi = 300)
@@ -106,7 +106,7 @@ genboxplots <- function(indexesT,name){
   simpsonboxname <- paste(name,"_SimpsonIndexBoxplot", ".png", sep="")
   simpsonbox <- ggplot(indexesT, aes(x= Sample, y= Simpson)) + 
     ylab("Simpson Index") + 
-    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) + #Usar fill = c(C1,C2,...) para dar colores específicos a las variables 
+    geom_boxplot(fill=sample(mypal, length(treatcol)),fatten=1, outlier.shape = NA) +
     theme_light() + 
     theme(axis.title.x = element_blank())
   ggsave(filename = simpsonboxname, plot = simpsonbox, device="png", width = 10, height = 10, dpi = 300)
@@ -115,40 +115,7 @@ genboxplots <- function(indexesT,name){
 ## Paleta de colores general
 
 bcol.pal <- 
-  mypal <- c("#f29080",
-             "#f27933",
-             "#ffba4a",
-             "#fbff91", 
-             "#78a644", 
-             "#91ffd9",
-             "#77def2",
-             "#396799",
-             "#91a0ff",
-             "#c936ff", 
-             "#99268f", 
-             "#ff369e", 
-             "#ff363c", 
-             "#8c3b1d", 
-             "#a6754b", 
-             "#99844b", 
-             "#b9ff40", 
-             "#30e676", 
-             "#188c7d", 
-             "#2bc0ff", 
-             "#1a4099",
-             "#3643ff",
-             "#e89cff", 
-             "#cc74a6", 
-             "#bf284b")
-
-## Espacio destinado para dar colores específicos a las variables 
-
-# C1 = "#00FE08"
-# C2 = "#0B6B0E"
-# C3 = "#04E2F8"
-# C4 = "#1114DC"
-# C5 = "#CB72F0"
-# C6 = "#6007D2"
+  mypal <- c("#f29080", "#f27933", "#ffba4a", "#fbff91", "#78a644", "#91ffd9", "#77def2", "#396799", "#91a0ff", "#c936ff", "#99268f", "#ff369e", "#ff363c", "#8c3b1d", "#a6754b", "#99844b", "#b9ff40", "#30e676", "#188c7d", "#2bc0ff", "#1a4099", "#3643ff", "#e89cff", "#cc74a6", "#bf284b")
 
 ## Preparar librerías
 
@@ -159,14 +126,22 @@ if (any(installed_packages == FALSE)) {
 }
 invisible(lapply(packages, library, character.only = TRUE))
 
+## Espacio destinado para dar colores específicos a las variables 
+
+# RB1 = "#00FE08"
+# RB2 = "#0B6B0E"
+# MF1 = "#04E2F8"
+# MF2 = "#1114DC"
+# CMF1 = "#CB72F0"
+# CRB1 = "#6007D2"
 
 ## Preparación de datos 
 
-setwd("~/Path/To/Your/Directory") 
-raw_data <- read.table(file.choose(), header = T, sep = ",",quote = "\"", stringsAsFactors = F, fill = F) 
+setwd("~/Tec_BASE/scripts/Corrida_readme_metgen/") 
+raw_data <- read.table(file.choose(), header = T, sep = ",",quote = "", stringsAsFactors = F, fill = F) 
 raw_data
-raw_data[,-c(1,2,3)] <-lapply(raw_data[, -c(1,2,3)], as.integer)
-#raw_data <- raw_data[,c(-22,-23,-24)]
+#raw_data[,-c(1,2,3)] <-lapply(raw_data[, -c(1,2,3)], as.integer)
+#raw_data <- raw_data[,c(n1,n2,n3)]
 str(raw_data)
 
 taxa_data <- list()
@@ -177,7 +152,7 @@ taxa <- c("phylum", "family","genus", "species")
 ## Filtrado de datos 
 for (i in 1:length(taxa)) {  
   taxa_data[[i]] <- raw_data %>% filter(Rank == taxa[i]) 
-  taxa_data[[i]] <- taxa_data[[i]][,c(-1,-2)] 
+  taxa_data[[i]] <- taxa_data[[i]][,-c(1,2)] 
   taxa_long_data[[i]] <- taxa_data[[i]] %>% 
     as.data.table() %>% 
     melt(id = c("Scientific.Name"), variable.name = "Sample", value.name = "Abundance") %>% 
@@ -209,14 +184,13 @@ names(taxa_data) <- taxa
 names(taxa_long_data) <- taxa
 names(Metatop) <- taxa
 dt
-df
 taxa_data
 taxa_long_data
 Metatop
 
 ## Generación de documentos a partir del filtrado de los datos 
 for (i in 1:4) {
-  name = paste("MetaGen",taxa[i],sep = "_")
+  name = paste("MetaGen_ReadME",taxa[i],sep = "_")
   write_csv(taxa_data[[i]],file=paste("Taxa_data",name,".csv",sep="_"))
   write_csv(taxa_long_data[[i]],file=paste("Taxa_LD",name,".csv",sep="_"))
   write_csv(Metatop[[i]],file=paste("MetaTop",name,".csv",sep="_"))
@@ -225,10 +199,11 @@ for (i in 1:4) {
 
 ## Visualización de datos
 ##Tablas y Boxplots 
+name = paste("MetaGen_ReadME",taxa[i],sep = "_")
 
 for (i in 1:length(taxa)){
   x  <- taxa_long_data[[i]]
-  genbarplot(x,1,taxa[i],"MetaGen",mypal)
+  genbarplot(x,1,taxa[i],name,mypal)
 }
 
 #diversity tables and boxplots
@@ -251,8 +226,9 @@ for (i in 1:length(diversity)) {
 names(diversityT) <- taxa
 
 for (i in 1:length(diversity)){
-  name = paste("MetaGen",taxa[i],sep="_")
+  name = paste("S&SDiversity_ReadME",taxa[i],sep = "_")
   genboxplots(diversityT[[i]],name)
   write.csv(diversity[[i]],file=paste(name,".csv",sep="_"))
 }
+
 
