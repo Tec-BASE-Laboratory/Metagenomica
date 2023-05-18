@@ -115,7 +115,15 @@ genboxplots <- function(indexesT,name){
 ## Paleta de colores general
 
 bcol.pal <- 
-  mypal <- c("#f29080", "#f27933", "#ffba4a", "#fbff91", "#78a644", "#91ffd9", "#77def2", "#396799", "#91a0ff", "#c936ff", "#99268f", "#ff369e", "#ff363c", "#8c3b1d", "#a6754b", "#99844b", "#b9ff40", "#30e676", "#188c7d", "#2bc0ff", "#1a4099", "#3643ff", "#e89cff", "#cc74a6", "#bf284b")
+  mypal <- c("#f29080", "#f27933", "#ffba4a",
+             "#fbff91", "#78a644", "#91ffd9",
+             "#77def2", "#396799", "#91a0ff", 
+             "#c936ff", "#99268f", "#ff369e", 
+             "#ff363c", "#8c3b1d", "#a6754b", 
+             "#99844b", "#b9ff40", "#30e676",
+             "#188c7d", "#2bc0ff", "#1a4099", 
+             "#3643ff", "#e89cff", "#cc74a6", 
+             "#bf284b")
 
 ## Preparar librerías
 
@@ -136,8 +144,8 @@ invisible(lapply(packages, library, character.only = TRUE))
 # CRB1 = "#6007D2"
 
 ## Preparación de datos 
-
-setwd("~/Tec_BASE/scripts/Corrida_readme_metgen/") 
+dir <- "~/"
+setwd(dir) 
 raw_data <- read.table(file.choose(), header = T, sep = ",",quote = "", stringsAsFactors = F, fill = F) 
 raw_data
 #raw_data[,-c(1,2,3)] <-lapply(raw_data[, -c(1,2,3)], as.integer)
@@ -230,5 +238,4 @@ for (i in 1:length(diversity)){
   genboxplots(diversityT[[i]],name)
   write.csv(diversity[[i]],file=paste(name,".csv",sep="_"))
 }
-
 
