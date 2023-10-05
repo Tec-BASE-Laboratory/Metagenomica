@@ -31,12 +31,11 @@ Se recomienda usar los códigos de hexadecimales de color para poder obtener col
 Es muy importante mencionar que al modificar estos parámetros se tome en cuenta lo que se busca conseguir con este análisis y la manera en la que se busca presentar los resultados.  
 
 # Datos
-En la segunda sección del código se declara el pathway de la carpeta donde se encuentran los datos con los cuales va a trabajar el programa. Es importante mencionar que dentro de esta carpeta se van a guardar los diferentes documentos e imágenes resultantes de este análisis. Por esto se recomienda destinar Carpetas específicas para cada análisis indívidual. 
+En la segunda sección del código se declara el directorio donde se encuentran los datos con los cuales va a trabajar el programa. Es importante mencionar que dentro de esta carpeta se van a guardar los diferentes documentos e imágenes resultantes de este análisis. Por esto se recomienda destinar Carpetas específicas para cada análisis indívidual. 
 
 Dentro de esta sección se hace un tratado de los datos para asegurar que el formato es el correcto y R o Rstudio no arroje códigos de error y códigos de advertencia. El input de este código debe de ser un archivo **.csv** o **.txt** proveniente del análisis taxonómico de [KRAKEN 2](https://github.com/DerrickWood/kraken2.). 
 
 El input se debe de ver acomodado de la siguiente manera: 
-
 
 | Rank | TaxId | Scientific Name | Sample 1 | Sample 2 | Sample 3 | 
 | --- | --- | --- | --- | --- | --- |
@@ -102,6 +101,11 @@ Al momento de hacer el filtrado de los datos no se van a reportar los resultados
 
 Dentro de este mismo loop se filtran los datos para poder obtener un **Top n** de los datos, es decir, obtener un Top n de especies, generos, familias y filos. Se puede modificar el tamaño del top dependiendo de las necesidades del estudio. El default de este programa es un Top 10. 
 
+```Rscript
+level <-(Metatop$family)
+```
+En esta linea es importante seleccionar el nivel al que se desea visualizar la diversidad de cada muestra. En este caso se seleccionó a nivel de familia pero puede ser especies, generos, familias y filos.
+
 # Visualización de datos 
 
 En esta sección se generan diferentes outputs en forma de documentos **.csv**, barplots y boxplots que ayudan a la visualización de los datos, así como son útiles para hacer análisis estadísticos posteriores debido a que ya pasaron por un normalizado y filtrado. 
@@ -159,7 +163,6 @@ Estos documentos deben presentarse con el siguiente formato:
 
 La generación de estas tablas tiene como finalidad permitir al usuario usar los datos filtrados para hacer otro tipo de análisis estadísticos y/o presentarlos dependiendo de las necesidades del estudio. 
 
-
 ## Generación de gráficos  
 
 Después de crear los primeros doce documentos **.csv**, las siguientes partes del código se dedican a la creación de gráficos de barras y diagramas de cajas y bigotes.
@@ -173,10 +176,6 @@ Este gráfico de barras muestra la abundancia relativa de cada familia en cada m
 
 La función de diagrama de caja se encuentra en la última sección del código. Este bucle crea las tablas de índices de Shannon y Simpson, así como dos diagramas de cajas y bigotes para cada grupo taxonómico (uno para Shannon y otro para Simpson).
 
-A continuación se meustran ejemplos de los diagramas de cajas y bigotes generados por el programa. Shannon(primero) Simpson(segundo).
-
-![S SDiversity_ReadME_family_ShannonIndexBoxplot](https://user-images.githubusercontent.com/106264605/236338339-5b07228b-9875-4b88-8e45-61c2fca29c0b.png)
-
-![S SDiversity_ReadME_family_SimpsonIndexBoxplot](https://user-images.githubusercontent.com/106264605/236338358-1b2b73b8-2500-47fb-a235-bb59c6463e82.png)
-
-Los colores para los diagramas son creados aleatoriamente. En caso de querer colores específicos para los diagramas, es necesario seguir los pasos indicados en [**Utils y Librerías**](#Utils-y-Librerías)
+A continuación, se muestran boxplots para visualizar la variabilidad de las muestras usando los ínidces de Shannon y Simpson. 
+![Shannon_Diversity](https://github.com/Tec-BASE-Laboratory/Metagenomica/assets/112114237/fe0f72c0-2628-4985-adf4-8764007ee45a)
+![Simpson_diversity](https://github.com/Tec-BASE-Laboratory/Metagenomica/assets/112114237/fcf7db51-6204-4c9d-bd6d-519104a9b7a5)
