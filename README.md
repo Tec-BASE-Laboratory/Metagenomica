@@ -177,5 +177,10 @@ Este gráfico de barras muestra la abundancia relativa de cada familia en cada m
 La función de diagrama de caja se encuentra en la última sección del código. Este bucle crea las tablas de índices de Shannon y Simpson, así como dos diagramas de cajas y bigotes para cada grupo taxonómico (uno para Shannon y otro para Simpson).
 
 A continuación, se muestran boxplots para visualizar la variabilidad de las muestras usando los ínidces de Shannon y Simpson. 
+
+Boxplot usando el índice de Shannon.
 ![Shannon_Diversity](https://github.com/Tec-BASE-Laboratory/Metagenomica/assets/112114237/fe0f72c0-2628-4985-adf4-8764007ee45a)
+
+Boxplot usando el índice de Simpson.
+
 ![Simpson_diversity](https://github.com/Tec-BASE-Laboratory/Metagenomica/assets/112114237/fcf7db51-6204-4c9d-bd6d-519104a9b7a5)
