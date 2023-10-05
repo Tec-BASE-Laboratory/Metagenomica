@@ -1,6 +1,5 @@
 ## Función para agrupar los datos que restan (otro 1%)
 
-
 otherize <- function(dt,limite,other) {
   #dt = data table, limite = threshold for changing scientific name to other
   totAb <- sum(dt$Abundance)
@@ -9,6 +8,31 @@ otherize <- function(dt,limite,other) {
   dt <- aggregate(Abundance ~ ., dt, sum)
 }
 
+#Función para caluclar los índices de diversidad
+
+calculate_diversity_indices <- function(data) {
+  # Shannon
+  shannon_diversity <- function(x) {
+    p <- x / sum(x)
+    -sum(p * log2(p), na.rm = TRUE)
+  }
+  
+  #Simpson
+  simpson_diversity <- function(x) {
+    p <- x / sum(x)
+    1 - sum(p^2, na.rm = TRUE)
+  }
+  
+  # Agrupar los datos por muestra y calcular los índices
+  result <- data %>%
+    group_by(Sample) %>%
+    summarize(
+      Shannon_Index = shannon_diversity(Abundance),
+      Simpson_Index = simpson_diversity(Abundance)
+    )
+  
+  return(result)
+}
 
 genbarplot <- function(x,limite,tax,name,pal){
   ## x = data table long form
@@ -113,7 +137,7 @@ genboxplots <- function(indexesT,name){
 }
 
 ## Paleta de colores general
-
+pastel_colors <- c("#FFB6C1", "#FFD700", "#87CEEB", "#98FB98")
 bcol.pal <- 
   mypal <- c("#f29080", "#f27933", "#ffba4a",
              "#fbff91", "#78a644", "#91ffd9",
@@ -186,7 +210,6 @@ for (i in 1:length(taxa)) {
   Metatop[[i]] <- top_df
 }
 
-
 treatcol <- unique(treatments %>% str_remove_all('[r\\d]'))
 names(taxa_data) <- taxa 
 names(taxa_long_data) <- taxa
@@ -195,6 +218,26 @@ dt
 taxa_data
 taxa_long_data
 Metatop
+
+# Aquí se asigna el Nivel al que se desea analizar la Abundancia.
+level <-(Metatop$family)
+# ------------------------------------------------------------
+
+# Llamamos la función para calcular los índices de Shannon Y Simpson para cada muestra
+indices <- calculate_diversity_indices(df2)
+print(indices) # < ---- Indices
+
+
+# Diversidad de Simpson Y Shannon.
+
+# Cada Indice Multiplicado por su muestra correspondiente. 
+merged_df <- merge(level, indices, by = "Sample", all.x = TRUE)
+merged_df$Simpson_Diversity <- merged_df$Simpson_Index * merged_df$Abundance
+merged_df$Shannon_Diversity <- merged_df$Shannon_Index * merged_df$Abundance
+print(merged_df) # <- Nuevos datos de abundancia calculados.
+                 # Esto nos permite obtener los datos correspondientes para
+                 # visualizar la diversidad en cada muestra.
+
 
 ## Generación de documentos a partir del filtrado de los datos 
 for (i in 1:4) {
@@ -206,7 +249,57 @@ for (i in 1:4) {
 
 
 ## Visualización de datos
+
 ##Tablas y Boxplots 
+
+
+
+# Simpson Boxplot.
+# Gráfico que corresponde a la visualización de datos de la diversidad en cada
+# muestra tomando en cuenta el índice de Simpson.
+
+ggplot(merged_df, aes(x = Sample, y = Simpson_Diversity, fill = Sample)) +
+  geom_boxplot(width = 0.1) +
+  scale_fill_manual(values = pastel_colors) +
+  labs(
+    x = "Sample",
+    y = "Simpson Abundance",
+    fill = "Sample",
+    title = "Family Level, Simpson Diversity"
+  ) +
+  
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.major = element_line(color = "white", size = 0.2), # Add major grid lines
+    panel.grid.minor = element_blank(),
+    legend.position = "none"
+  )
+
+# Shannon Boxplot
+# Gráfico que corresponde a la visualización de datos de la diversidad en cada
+# muestra tomando en cuenta el índice de Shannon.
+
+ggplot(merged_df, aes(x = Sample, y = Shannon_Diversity, fill = Sample)) +
+  geom_boxplot(width = 0.1) +
+  scale_fill_manual(values = pastel_colors) +
+  labs(
+    x = "Sample",
+    y = "Shannon Abundance",
+    fill = "Sample",
+    title = "Family Level, Shannon Diversity"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.major = element_line(color = "white", size = 0.2), # Add major grid lines
+    panel.grid.minor = element_blank(),
+    legend.position = "none"
+  )
+
+
+
+
 name = paste("MetaGen_ReadME",taxa[i],sep = "_")
 
 for (i in 1:length(taxa)){
