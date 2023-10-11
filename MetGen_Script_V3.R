@@ -224,7 +224,7 @@ level <-(Metatop$family)
 # ------------------------------------------------------------
 
 # Llamamos la función para calcular los índices de Shannon Y Simpson para cada muestra
-indices <- calculate_diversity_indices(df2)
+indices <- calculate_diversity_indices(level)
 print(indices) # < ---- Indices
 
 
