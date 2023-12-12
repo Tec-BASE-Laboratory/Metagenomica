@@ -137,7 +137,7 @@ taxa_long_data
 Metatop
 
 ## ----------------  Generación de documentos a partir del filtrado de los datos --------------
-setwd()
+setwd() # <- Directorio para guardar los archivos
 for (i in 1:4) {
   name = paste("MetaGen_5DIC",taxa[i],sep = "_")
   write_csv(taxa_data[[i]],file=paste("Taxa_dataS",name,".csv",sep="_"))
@@ -161,18 +161,6 @@ for (i in 1:4) {
   rm(df)
 }
 
-#for (i in 1:4) {
-long_taxa_data[[i]] <- taxa_data[[i]] %>% 
-  as.data.table() %>% 
-  melt.data.table(id = c("Scientific.Name"), 
-                  variable.name = "Sample", 
-                  value.name = "Abundance")
-df <- long_taxa_data[[i]]
-colnames(df) <- c("Scientific Name","Sample","Abundance")
-df$Sample <-  df$Sample %>% str_remove_all('[r\\d]') 
-long_taxa_data[[i]] <- df
-rm(df)
-}
 names(long_taxa_data) <- taxa
 
 top10 <- list() # <-  lISTA DE TOP 10 por grupo taxonómico
